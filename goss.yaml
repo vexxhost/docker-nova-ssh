@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: © 2025 VEXXHOST, Inc.
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+user:
+  nova:
+    exists: true
+    uid: 42424
+    gid: 42424
+    home: /var/lib/nova
+    shell: /bin/bash
+
+group:
+  nova:
+    exists: true
+    gid: 42424
+
+package:
+  openssh-server:
+    installed: true
+  openssh-client:
+    installed: true
+  iproute2:
+    installed: true
+
+file:
+  /var/lib/nova:
+    exists: true
+    owner: nova
+    group: nova
+    filetype: directory
+  /etc/nova:
+    exists: true
+    owner: nova
+    group: nova
+    filetype: directory
+  /var/log/nova:
+    exists: true
+    owner: nova
+    group: nova
+    filetype: directory
+  /var/cache/nova:
+    exists: true
+    owner: nova
+    group: nova
+    filetype: directory
+  /etc/ssh:
+    exists: true
+    owner: nova
+    group: nova
+    filetype: directory
+  /var/run/sshd:
+    exists: true
+    mode: "0755"
+    filetype: directory
+  /etc/ssh/sshd_config.d/00-hardening.conf:
+    exists: true
+    contains:
+      - "Ciphers aes256-ctr,aes192-ctr"
+      - "MACs hmac-sha2-512,hmac-sha2-256"
+      - "KexAlgorithms diffie-hellman-group-exchange-sha256"
+      - "HostKeyAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521"
+      - "MaxAuthTries 3"
