@@ -18,7 +18,12 @@ jobs:
     outputs:
       build-id: ${{ steps.build.outputs.build-id }}
     steps:
-      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@main
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
+      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@672cf56c8b828e444b6e7906d0ee355c7ec1dea9 # main
         id: build
         with:
           image-name: nova-ssh
@@ -29,11 +34,16 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: depot/setup-action@v1
-      - uses: depot/pull-action@v1
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a90bcbc6539c36a85cdfeb73f7e2f433735f215b # v2.15.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: step-security/depot-setup-action@f5473e0857ae0042e260d41d027c9b23ac531127 # v1.6.1
+      - uses: depot/pull-action@a913e06772c98ecd2361a8cc49bec81592dc6600 # v1.3.1
         with:
           build-id: ${{ needs.build.outputs.build-id }}
           tags: nova-ssh:test
-      - uses: e1himself/goss-installation-action@v1
+      - uses: e1himself/goss-installation-action@8c646222c1cb43528392161394b745cb5d28e8f9 # v1
       - run: dgoss run nova-ssh:test sleep infinity
