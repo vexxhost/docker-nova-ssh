@@ -28,6 +28,9 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: depot/setup-action@v1
