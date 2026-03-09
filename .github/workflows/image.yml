@@ -29,11 +29,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: depot/setup-action@v1
-      - uses: depot/pull-action@v1
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: depot/setup-action@15c09a5f77a0840ad4bce955686522a257853461 # v1
+      - uses: depot/pull-action@a913e06772c98ecd2361a8cc49bec81592dc6600 # v1
         with:
           build-id: ${{ needs.build.outputs.build-id }}
           tags: nova-ssh:test
-      - uses: e1himself/goss-installation-action@v1
+      - uses: e1himself/goss-installation-action@8c646222c1cb43528392161394b745cb5d28e8f9 # v1
       - run: dgoss run nova-ssh:test sleep infinity
