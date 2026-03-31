@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: depot/setup-action@v1
-      - uses: depot/pull-action@v1
+      - uses: depot/pull-action@a913e06772c98ecd2361a8cc49bec81592dc6600 # v1.3.1
         with:
           build-id: ${{ needs.build.outputs.build-id }}
           tags: nova-ssh:test
