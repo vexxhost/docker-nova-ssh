@@ -35,5 +35,5 @@ jobs:
         with:
           build-id: ${{ needs.build.outputs.build-id }}
           tags: nova-ssh:test
-      - uses: e1himself/goss-installation-action@v1
+      - uses: e1himself/goss-installation-action@3b8340a7c772f8064444f48b0df4c2a80d2e50fc # v1.3.0
       - run: dgoss run nova-ssh:test sleep infinity
