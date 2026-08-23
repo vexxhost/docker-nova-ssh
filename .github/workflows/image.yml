@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: depot/setup-action@v1
+      - uses: depot/setup-action@91bc8495a33ebfc504ffc89e5674379ccf23c29c # v1.7.2
       - uses: depot/pull-action@v1
         with:
           build-id: ${{ needs.build.outputs.build-id }}
