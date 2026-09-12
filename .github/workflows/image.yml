@@ -18,7 +18,7 @@ jobs:
     outputs:
       build-id: ${{ steps.build.outputs.build-id }}
     steps:
-      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@main
+      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@d048c9245c93c10c06d42d1ea9311fcd3d416530 # main
         id: build
         with:
           image-name: nova-ssh
@@ -29,11 +29,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: depot/setup-action@v1
-      - uses: depot/pull-action@v1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: depot/setup-action@91bc8495a33ebfc504ffc89e5674379ccf23c29c # v1
+      - uses: depot/pull-action@a913e06772c98ecd2361a8cc49bec81592dc6600 # v1
         with:
           build-id: ${{ needs.build.outputs.build-id }}
           tags: nova-ssh:test
-      - uses: e1himself/goss-installation-action@v1
+      - uses: e1himself/goss-installation-action@8c646222c1cb43528392161394b745cb5d28e8f9 # v1
       - run: dgoss run nova-ssh:test sleep infinity
